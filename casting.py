@@ -1,3 +1,5 @@
+#!/bin/python3
+
 # Cast a string to integer
 some_number_in_a_string = "100"
 another_number = 1 + int(some_number_in_a_string)
