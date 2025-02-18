@@ -1,10 +1,11 @@
 #!/bin/python3
 
 import subprocess
-import time
 
 first_time = input("Please enter a time in the format HH:mm (24 hour format): ")
 second_time = input("Please enter a time in the format HH:mm (24 hour format): ")
+
+# TODO convert strings to times
 
 while True:
     subprocess.run('clear', shell=True)
@@ -19,10 +20,17 @@ while True:
     8- Exit\n""")
 
     chosen_option = input("Enter an option: ")
-    match chosen_option:
+    subprocess.run('clear', shell=True)
+
+    match int(chosen_option):
         case 1:
             total = first_time + second_time
             print(f"The 2 times added together is: {total}")
-            time.sleep(5)
+        case 2:
+            print()
+        case _:
+            print("Invalid option, please try again")
+
+    input("\nPress enter to continue...")
 
 

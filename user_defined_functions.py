@@ -3,7 +3,7 @@
 # Personal allowance:£11,850
 PERSONAL_ALLOWANCE = 11850
 
-def get_income_tax(salary):
+def get_income_tax(salary: float):
     # 0 to 34,500 taxed at 20%
     if salary < 34500:
         income_tax = (salary - PERSONAL_ALLOWANCE) * .2
