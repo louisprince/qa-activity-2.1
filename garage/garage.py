@@ -1,4 +1,5 @@
 from vehicle import Vehicle
+from exceptions import VehicleNotFoundException
 
 class Garage:
     def __init__(self):
@@ -15,4 +16,4 @@ class Garage:
         for vehicle in self.__vehicles:
             if vehicle.id == id:
                 return vehicle
-        raise Exception
+        raise VehicleNotFoundException
