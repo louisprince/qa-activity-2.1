@@ -1,12 +1,17 @@
 from abc import ABC, abstractmethod
 
 class Vehicle(ABC):
-    def __init__(self, make: str, model: str, milage: int, year: int, mot: bool):
+    def __init__(self, id: int, make: str, model: str, milage: int, year: int, mot: bool):
+        self._id = id
         self._make = make
         self._model = model
         self._year = year
         self._milage = milage
         self._mot = mot
+
+    @property
+    def id(self):
+        return self._id
 
     @property
     def make(self):

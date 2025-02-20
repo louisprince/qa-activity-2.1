@@ -1,9 +1,9 @@
 from vehicle import Vehicle
 
 class Van(Vehicle):
-    def __init__(self, make: str, model: str, milage: int, year: int, 
+    def __init__(self, id: int, make: str, model: str, milage: int, year: int, 
                  mot: bool, side_door: bool):
-        super().__init__(make, model, milage, year, mot)
+        super().__init__(id, make, model, milage, year, mot)
         self._side_door = side_door
 
     @property
