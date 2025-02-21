@@ -11,8 +11,37 @@ def main():
     garage.add_vehicle(Car(456, "Tesla", "Model S", 35982, 2023, True, True, True))
     garage.add_vehicle(Van(789, "Merdedes", "Sprinter", 362895, 2021, True, True))
 
-    vehicle = choose_vehicle(garage)
-    choose_action(vehicle)
+    specific_car = choose_garage_action(garage)
+
+    if specific_car: 
+        vehicle = choose_vehicle(garage)
+        choose_vehicle_action(vehicle)
+
+def choose_garage_action(garage: Garage):
+    while True:
+        action = input("Choose an action:\n"
+                       "Choose Specific Vehicle (s)\n"
+                       "Wash All (a)\n"
+                       "Quick Service All (q)\n"
+                       "Full Service All (f)\n")
+
+        try:
+            match action.lower():
+                case "s": 
+                    return True
+                case "a": 
+                    print(garage.wash_all())
+                    return False
+                case "q": 
+                    print(garage.service_all(False))
+                    return False
+                case "f": 
+                    print(garage.service_all(True))
+                    return False
+                case _: 
+                    raise ValueError
+        except ValueError:
+            print("Invalid option. Try again.")
 
 def choose_vehicle(garage: Garage):
     vehicle_id = None
@@ -32,7 +61,7 @@ def choose_vehicle(garage: Garage):
 
     return vehicle
 
-def choose_action(vehicle: Vehicle):    
+def choose_vehicle_action(vehicle: Vehicle):    
     while True:
         action = input("Choose an action:\n"
                 "Wash (w)\n"
@@ -41,9 +70,9 @@ def choose_action(vehicle: Vehicle):
 
         try:
             match action.lower():
-                case "w": return vehicle.wash()
-                case "q": return vehicle.service(False)
-                case "f": return vehicle.service(True)
+                case "w": return print(vehicle.wash())
+                case "q": return print(vehicle.service(False))
+                case "f": return print(vehicle.service(True))
                 case _: raise ValueError
         except ValueError:
             print("Invalid option. Try again.")

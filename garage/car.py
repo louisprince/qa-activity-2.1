@@ -16,23 +16,22 @@ class Car(Vehicle):
         return self._android
     
     def service(self, full_service: bool):
-        if full_service is True:
-            print(f"Performing a full service on the {self._description()}. "
-                  "It needs a lot of work.")
-        else: 
-            print(f"Performing a quick service on the {self._description()}. "
-                  "It doesn't need much doing to it.")
-            
-        if self.android is True:
-            print("While we're at it lets give the Android Auto system in the "
-                 f"{self._description()} a tune up.")
+        output = ""
 
-        if self.apple is True:
-             print("While we're at it lets give the Apple Car Play system in "
-                 f"the {self._description()} a tune up.")
+        if full_service is True:
+            output += f"Performing a full service on the {self._description()}.\nIt needs a lot of work."
+        else: 
+            output += f"Performing a quick service on the {self._description()}.\nIt doesn't need much doing to it."
+            
+        if self.android is True and full_service is True:
+            output += f"While we're at it lets give the Android Auto system in the {self._description()} a tune up."
+
+        if self.apple is True and full_service is True:
+             output += f"While we're at it lets give the Apple Car Play system in the {self._description()} a tune up."
+
+        return output
             
     def wash(self):
-        print(f"Giving the {self.year} {self.make} {self.model} car a wash. "
-               "Hoovering the crumbs around the drivers seat.")
-    
+        return f"Giving the {self.year} {self.make} {self.model} car a wash.\nHoovering the crumbs around the drivers seat."
+           
     

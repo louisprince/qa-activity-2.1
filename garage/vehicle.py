@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+from typing import final
 
 class Vehicle(ABC):
     def __init__(self, id: int, make: str, model: str, milage: int, year: int, mot: bool):
@@ -41,13 +42,14 @@ class Vehicle(ABC):
     def mot(self, value: bool):
         self._mot = value
 
+    @final
     def _description(self):
         return f"{self.year} {self.make} {self.model}"
 
     @abstractmethod
-    def service(self, full_service: bool):
+    def service(self, full_service: bool) -> str:
         pass
 
     @abstractmethod
-    def wash(self):
+    def wash(self) -> str:
         pass
