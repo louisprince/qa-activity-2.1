@@ -1,18 +1,18 @@
 class MathsOperations:
-    def divide(self, a, b):
+    def divide(self, a: float, b: float) -> float:
         if a != 0 and b != 0:
             return a / b
         else:
             return 0
     
-    def multiply(self, a, b):
+    def multiply(self, a: float, b: float) -> float:
         return a * b
     
 class StringOperations:
-    def upper(self, s):
+    def upper(self, s: str) -> str:
         return (f"Uppercase string: {s.upper()}")
     
-    def lower(self, s):
+    def lower(self, s: str) -> str:
         return (f"Lowercase string: {s.lower()}")
 
 # MathsOperations injector
@@ -34,7 +34,7 @@ def string_ops(func):
 ###############################################################################
 
 @maths_ops
-def do_some_maths(x, y, maths_ops=None):
+def do_some_maths(x: float, y: float, maths_ops=None) -> None:
     result = x - y
     print(f"The result of the subtraction is: {result}")
 
@@ -44,7 +44,7 @@ def do_some_maths(x, y, maths_ops=None):
 
 
 @string_ops
-def do_some_string_stuff(s, string_ops=None):
+def do_some_string_stuff(s: str, string_ops=None) -> None:
     print(f"The input string is: {s}")
 
     if string_ops:
@@ -54,7 +54,7 @@ def do_some_string_stuff(s, string_ops=None):
 
 @string_ops
 @maths_ops
-def do_a_bit_of_both(s, x, string_ops=None, maths_ops=None):
+def do_a_bit_of_both(s: str, x: float, string_ops=None, maths_ops=None) -> None:
     print(f"The input string is: {s}")
     print(f"The input number is: {x}")
 
