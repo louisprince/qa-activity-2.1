@@ -1,6 +1,6 @@
 #!/bin/python3
 
-file = open("./car_sale.csv")
+file = open("./car_sales.csv")
 lines = file.readlines()
 headers = str(lines[0]).replace('\n', '').split(',')
 companies: list[dict[str, str]] = list()

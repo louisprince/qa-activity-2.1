@@ -4,5 +4,5 @@ virtual1
 
 # Ideas for Monday/Tuesday
 - Custom exceptions
-- Abstract classes
+- Composition
 - SOLID Principles
