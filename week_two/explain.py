@@ -9,7 +9,7 @@ load_dotenv()
 client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
 
 def main():
-    user_input = " ".join(sys.argv[1:])
+    user_input = " ".join(sys.argv[1:])  # Skip the first element which is the Python script itself
 
     if user_input == "":
         return print("Please enter some commands!")
@@ -17,11 +17,11 @@ def main():
     try:
         response = get_response(user_input)
     except Exception:
-        return print("The was an issue with the Gemini API, please try again later")
+        return print("The was an issue with the Gemini API, please try again later.")
 
     print(response)
 
-def get_response(prompt: str) -> str:
+def get_response(user_prompt: str) -> str:
     SYSTEM_PROMPT = """\
         Explain the purpose of a provided command or command sequence in one clear, concise sentence.
         Respond only to command explanations—ignore all other inputs. 
@@ -33,7 +33,7 @@ def get_response(prompt: str) -> str:
         model="gemini-2.0-flash",
         config=types.GenerateContentConfig(
             system_instruction=textwrap.dedent(SYSTEM_PROMPT)),
-        contents=[prompt])
+        contents=[user_prompt])
 
     if response.text is None:
         raise Exception
