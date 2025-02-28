@@ -1,14 +1,20 @@
 import sqlite3
+from contextlib import contextmanager
 import requests
 
 DATABASE_NAME = 'pokemon.db'
 API_URL = 'https://pokeapi.co/api/v2/pokemon/'
 
-def connect_db() -> sqlite3.Connection:
-    return sqlite3.connect(DATABASE_NAME)
+@contextmanager
+def get_connection():
+    connection = sqlite3.connect(DATABASE_NAME)
+    try:
+        yield connection
+    finally:
+        connection.close()
 
 def setup_db() -> None:
-    with connect_db() as connection:
+    with get_connection() as connection:
         cursor = connection.cursor()
         cursor.execute('''CREATE TABLE IF NOT EXISTS pokemon
                      (id INTEGER PRIMARY KEY,
@@ -19,39 +25,39 @@ def setup_db() -> None:
         connection.commit()
 
 def create_pokemon(id: int, name: str, height: int, weight: int, types: str) -> None:
-    with connect_db() as connection:
+    with get_connection() as connection:
         cursor = connection.cursor()
         query = 'INSERT INTO pokemon(id, name, height, weight, types) VALUES(?,?,?,?,?)'
         cursor.execute(query, (id, name, height, weight, types))
         connection.commit()
 
 def read_pokemon_id(id: int) -> tuple:
-    with connect_db() as connection:
+    with get_connection() as connection:
         cursor = connection.cursor()
         cursor.execute('SELECT * FROM pokemon WHERE id = ?', (id,))
         return cursor.fetchone()
 
 def read_pokemon_name(name: str) -> list:
-    with connect_db() as connection:
+    with get_connection() as connection:
         cursor = connection.cursor()
         cursor.execute('SELECT * FROM pokemon WHERE name LIKE ?', (f'%{name}%',))
         return cursor.fetchall()
 
 def read_all_pokemon() -> list:
-    with connect_db() as connection:
+    with get_connection() as connection:
         cursor = connection.cursor()
         cursor.execute('SELECT * FROM pokemon')
         return cursor.fetchall()
 
 def update_pokemon(id: int, new_name: str, new_height: int, new_weight: int, new_types: str) -> None:
-    with connect_db() as connection:
+    with get_connection() as connection:
         cursor = connection.cursor()
         query = 'UPDATE pokemon SET name = ?, height = ?, weight = ?, types = ? WHERE id = ?'
         cursor.execute(query, (new_name, new_height, new_weight, new_types, id))
         connection.commit()
 
 def delete_pokemon(id: int) -> None:
-    with connect_db() as connection:
+    with get_connection() as connection:
         cursor = connection.cursor()
         cursor.execute('DELETE FROM pokemon WHERE id = ?', (id,))
         connection.commit()
@@ -136,8 +142,8 @@ def main() -> None:
                 types = input(f'Current types: "{types}". New types: ').strip() or types
 
                 try:
-                    height = int(input(f'Current height: "{height}". New height: ').strip()) or height
-                    weight = int(input(f'Current weight: "{weight}". New weight: ').strip()) or weight
+                    height = int(input(f'Current height: "{height}". New height: ').strip() or height)
+                    weight = int(input(f'Current weight: "{weight}". New weight: ').strip() or weight)
                 except ValueError:
                     print("Height and Weight must contain only numbers!")
                     continue
